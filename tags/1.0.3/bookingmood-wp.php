@@ -2,8 +2,8 @@
 /*
   Plugin Name: Bookingmood
   Plugin URI: https://bookingmood.com/plugins/wordpress
-  description: Easily embed Bookingmood widgets into your Wordpress website
-  Version: 1.0
+  description: Embed Bookingmood booking calendars into your Wordpress website
+  Version: 1.0.3
   Author: Bookingmood
   Author URI: https://bookingmood.com
 */
@@ -16,8 +16,11 @@ function bookingmood_wp_head()
       if (!event.source || event.data?.operation !== "resize") return;
       const iframes = document.querySelectorAll("iframe");
       iframes.forEach(iframe => {
-        if (iframe.src === event.data.src)
-          iframe.height = event.data.height + 1;
+        if (iframe.src === event.data.src) {
+          const height = event.data.height + 1;
+          iframe.height = height;
+          iframe.style.setProperty("height", `${height}px`, "important");
+        }
       });
     }
 
